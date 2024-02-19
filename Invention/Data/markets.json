@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "TEst",
+    "Description": "TEst",
+    "Phone": "asd",
+    "Address": "TEst",
+    "Email": "TEst",
+    "Id": 1,
+    "CreatedAt": "2024-02-18T11:11:56.1982667Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  }
+]
