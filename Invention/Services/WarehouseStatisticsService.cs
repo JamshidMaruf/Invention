@@ -6,8 +6,16 @@ namespace Invention.Services;
 
 public class WarehouseStatisticsService : IWarehouseStatisticsService
 {
-    public ValueTask<WarehouseOperationStatisticsViewModel> GetStatisticAsync(long productId, DateFilter filter)
+    private readonly ProductService productService;
+    public WarehouseStatisticsService(ProductService productService)
     {
+        this.productService = productService;  
+    }
+
+    public async ValueTask<WarehouseOperationStatisticsViewModel> GetStatisticAsync(long productId, DateFilter filter)
+    {
+        await productService.GetByIdAsync(productId);
+
         throw new NotImplementedException();
     }
 

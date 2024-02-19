@@ -64,7 +64,6 @@ public class ProductServiceUI
         Console.Clear();
         var product = new ProductCreationModel();
 
-        product.Code = AnsiConsole.Ask<int>("Enter the product code:");
         product.Name = AnsiConsole.Ask<string>("Enter the product name:");
         product.Price = AnsiConsole.Ask<decimal>("Enter the product price:");
         product.Description = AnsiConsole.Ask<string>("Enter the product description:");

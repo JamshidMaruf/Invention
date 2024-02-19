@@ -27,14 +27,15 @@ public static class MapperExtension
     {
         var result = new List<T>();
 
-        var dto = new T();
-        var dtoType = dto.GetType();
-        var dtoProperties = dtoType.GetProperties();
 
         foreach (var obj in objs)
         {
             var objType = obj.GetType();
             var objProperties = objType.GetProperties();
+
+            var dto = new T();
+            var dtoType = dto.GetType();
+            var dtoProperties = dtoType.GetProperties();
 
             foreach (var objProperty in objProperties)
             {

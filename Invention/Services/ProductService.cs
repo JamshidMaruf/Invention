@@ -12,12 +12,13 @@ namespace Invention.Services;
 public class ProductService : IProductService
 {
     private List<Product> products;
+
     public async ValueTask<ProductViewModel> CreateAsync(ProductCreationModel product)
     {
         products = await FileIO.ReadAsync<Product>(Constants.ProductPath);
         var existProduct = products.FirstOrDefault(p => p.Code == product.Code);
-        
-        if(existProduct != null && existProduct.IsDeleted)
+
+        if (existProduct != null && existProduct.IsDeleted)
         {
             return await UpdateAsync(existProduct.Id, product.MapTo<ProductUpdateModel>(), true);
         }
@@ -115,5 +116,11 @@ public class ProductService : IProductService
         await FileIO.WriteAsync(Constants.ProductPath, products);
 
         return existProduct.MapTo<ProductViewModel>();
+    }
+
+    public async ValueTask<bool> CheckExistProductsAsync()
+    {
+        this.products = await FileIO.ReadAsync<Product>(Constants.ProductPath);
+        return products.Any();
     }
 }

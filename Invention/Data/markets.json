@@ -1,13 +1,13 @@
 [
   {
-    "Name": "TEst",
-    "Description": "TEst",
-    "Phone": "asd",
-    "Address": "TEst",
-    "Email": "TEst",
+    "Name": "test",
+    "Description": "asda",
+    "Phone": "ASD",
+    "Address": "etsts",
+    "Email": "test",
     "Id": 1,
     "CreatedAt": "2024-02-18T11:11:56.1982667Z",
-    "UpdatedAt": "0001-01-01T00:00:00",
+    "UpdatedAt": "2024-02-19T19:53:28.6821336Z",
     "DeletedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
   },
@@ -32,6 +32,18 @@
     "Id": 3,
     "CreatedAt": "2024-02-19T10:32:30.8565257Z",
     "UpdatedAt": "2024-02-19T10:41:05.8204377Z",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "Name": "Uzum",
+    "Description": "asdasda",
+    "Phone": "+9989922222222",
+    "Address": "\\",
+    "Email": "uzum@gmail.com",
+    "Id": 4,
+    "CreatedAt": "2024-02-19T19:51:09.0741568Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
     "DeletedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
   }

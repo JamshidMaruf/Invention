@@ -147,7 +147,7 @@ public class MarketServiceUI
 
     private async Task GetAllMarketsAsync()
     {
-        Console.Clear();
+        AnsiConsole.Clear();
 
         try
         {
@@ -164,6 +164,7 @@ public class MarketServiceUI
                 AnsiConsole.MarkupLine($"[yellow]Email : [/]{market.Email}");
                 await Console.Out.WriteLineAsync();
             }
+
         }
         catch (Exception ex)
         {

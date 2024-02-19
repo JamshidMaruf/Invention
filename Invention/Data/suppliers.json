@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "Test",
+    "ContactDetail": "asda",
+    "Code": 1,
+    "Id": 1,
+    "CreatedAt": "2024-02-19T20:41:33.9406504Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  }
+]

@@ -11,10 +11,25 @@ namespace Invention.Services;
 
 public class WarehouseOperationService : IWarehouseOperationService
 {
+    private readonly MarketService marketService;
+    private readonly ProductService productService;
+    private readonly SupplierService supplierService;
     private List<WarehouseOperation> warehouseOperations;
+    public WarehouseOperationService(
+        MarketService marketService,
+        ProductService productService,
+        SupplierService supplierService)
+    {
+        this.marketService = marketService;
+        this.productService = productService;
+        this.supplierService = supplierService;
+    }
 
     public async ValueTask<WarehouseOperationViewModel> AddAsync(WarehouseOperationAddModel model)
     {
+        await productService.GetByIdAsync(model.ProductId);
+        await supplierService.GetByIdAsync(model.SupplierId);
+
         warehouseOperations = await FileIO.ReadAsync<WarehouseOperation>(Constants.WarehouseOperationPath);
 
         var createdWarehouseOperation = warehouseOperations.Create(model.MapTo<WarehouseOperation>());
@@ -27,6 +42,9 @@ public class WarehouseOperationService : IWarehouseOperationService
 
     public async ValueTask<WarehouseOperationViewModel> RemoveAsync(WarehouseOperationRemoveModel model)
     {
+        await marketService.GetByIdAsync(model.MarketId);
+        await productService.GetByIdAsync(model.ProductId);
+        
         warehouseOperations = await FileIO.ReadAsync<WarehouseOperation>(Constants.WarehouseOperationPath);
 
         var removedWarehouseOperation = warehouseOperations.Create(model.MapTo<WarehouseOperation>());
@@ -37,7 +55,7 @@ public class WarehouseOperationService : IWarehouseOperationService
         return removedWarehouseOperation.MapTo<WarehouseOperationViewModel>();
     }
 
-    public async ValueTask<IEnumerable<WarehouseOperationViewModel>> GetAllAsync(Filter filter)
+    public async ValueTask<IEnumerable<WarehouseOperationViewModel>> GetAllAsync(Filter filter = null)
     {
         warehouseOperations = await FileIO.ReadAsync<WarehouseOperation>(Constants.WarehouseOperationPath);
         
@@ -85,14 +103,17 @@ public class WarehouseOperationService : IWarehouseOperationService
                         .ToList();
                     break;
                 case DateFilter.Yesterday:
+                    var yesterday = dateNow.AddDays(-1);
                     warehouseOperations = warehouseOperations
                         .Where(wo => wo.Time.Year == dateNow.Year &&
                                wo.Time.Month == dateNow.Month &&
-                               wo.Time.DayOfWeek == dateNow.DayOfWeek - 1)
+                               wo.Time.DayOfWeek == yesterday.DayOfWeek)
                         .ToList();
                     break;
             }
         }
+
+
 
         return warehouseOperations.MapTo<WarehouseOperationViewModel>();
     }

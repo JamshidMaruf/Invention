@@ -1,0 +1,74 @@
+[
+  {
+    "ProductId": 1,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-16T20:41:34.1644061Z",
+    "Type": 1,
+    "Id": 1,
+    "CreatedAt": "2024-02-18T20:41:34.1640086Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "ProductId": 2,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-19T20:41:34.2340852Z",
+    "Type": 1,
+    "Id": 2,
+    "CreatedAt": "2024-02-19T20:41:34.2335519Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "ProductId": 3,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-19T20:41:34.3141223Z",
+    "Type": 1,
+    "Id": 3,
+    "CreatedAt": "2024-02-19T20:41:34.3140845Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "ProductId": 4,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-19T20:41:34.3664374Z",
+    "Type": 1,
+    "Id": 4,
+    "CreatedAt": "2024-02-19T20:41:34.3664063Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "ProductId": 5,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-19T20:41:34.3797051Z",
+    "Type": 1,
+    "Id": 5,
+    "CreatedAt": "2024-02-19T20:41:34.3796811Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  },
+  {
+    "ProductId": 7,
+    "SupplierId": 1,
+    "MarketId": null,
+    "Time": "2024-02-19T20:41:34.3954888Z",
+    "Type": 1,
+    "Id": 6,
+    "CreatedAt": "2024-02-19T20:41:34.3954724Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
+  }
+]

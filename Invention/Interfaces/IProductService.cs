@@ -44,4 +44,10 @@ public interface IProductService
     /// </summary>
     /// <returns></returns>
     ValueTask<IEnumerable<ProductViewModel>> GetFromApiAsync();
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    ValueTask<bool> CheckExistProductsAsync();
 }
