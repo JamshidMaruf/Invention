@@ -66,7 +66,7 @@ public class ProductService : IProductService
     public async ValueTask<IEnumerable<ProductViewModel>> GetFromApiAsync()
     {
         using var httpClient = new HttpClient();
-        var respone = await httpClient.GetAsync(Constants.ProductPath);
+        var respone = await httpClient.GetAsync(Constants.IntegrationUrl); // Constants.ProductPath changed to IntegrationUrl
         respone.EnsureSuccessStatusCode();
         var content = await respone.Content.ReadAsStringAsync();
 

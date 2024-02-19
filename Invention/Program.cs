@@ -1,14 +1,10 @@
-﻿
+﻿using Invention.Services;
+using Invention.Uis;
 
-using Invention.Services;
+//var marketService = new MarketService();
+//var consoleUI = new MarketServiceUI(marketService);
+//await consoleUI.RunAsync();
 
-var service = new MarketService();
-
-await service.CreateAsync(new Invention.Models.Markets.MarketCreationModel
-{
-    Address = "TEst",
-    Name = "TEst",
-    Description = "TEst",
-    Email = "TEst",
-    Phone = "asd"
-});
+var productService = new ProductService();
+var consoleUI = new ProductServiceUI(productService);
+await consoleUI.RunAsync();
