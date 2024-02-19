@@ -10,5 +10,29 @@
     "UpdatedAt": "0001-01-01T00:00:00",
     "DeletedAt": "0001-01-01T00:00:00",
     "IsDeleted": false
+  },
+  {
+    "Name": "YHGVY",
+    "Description": "DFDFEFRRFERFFERF",
+    "Phone": "WEHYFGEJ",
+    "Address": "DEHFUE",
+    "Email": "YGFYHB",
+    "Id": 2,
+    "CreatedAt": "2024-02-19T10:26:45.9798191Z",
+    "UpdatedAt": "0001-01-01T00:00:00",
+    "DeletedAt": "2024-02-19T10:40:30.9480224Z",
+    "IsDeleted": true
+  },
+  {
+    "Name": "aaa",
+    "Description": "aaaaaaa",
+    "Phone": "aaaaa",
+    "Address": "aaaaaa",
+    "Email": "aaaa",
+    "Id": 3,
+    "CreatedAt": "2024-02-19T10:32:30.8565257Z",
+    "UpdatedAt": "2024-02-19T10:41:05.8204377Z",
+    "DeletedAt": "0001-01-01T00:00:00",
+    "IsDeleted": false
   }
 ]
