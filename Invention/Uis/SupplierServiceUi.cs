@@ -77,7 +77,7 @@ public class SupplierServiceUi
         Console.Clear();
         var suppliers = await _supplierService.GetAllAsync();
         var selectedSuplier = AnsiConsole.Prompt(new SelectionPrompt<SupplierViewModel>()
-            .Title("Deleting Product!")
+            .Title("Updating Supplier!")
             .AddChoices(suppliers)
             .UseConverter(p => p.Name)
             );
@@ -119,7 +119,7 @@ public class SupplierServiceUi
         Console.Clear();
         var suppliers = await _supplierService.GetAllAsync();
         var selectedSuplier = AnsiConsole.Prompt(new SelectionPrompt<SupplierViewModel>()
-            .Title("Deleting Product!")
+            .Title("Deleting Supplier!")
             .AddChoices(suppliers)
             .UseConverter(p => p.Name)
             );
@@ -158,7 +158,7 @@ public class SupplierServiceUi
         Console.Clear();
         var suppliers = await _supplierService.GetAllAsync();
         var selectedSuplier = AnsiConsole.Prompt(new SelectionPrompt<SupplierViewModel>()
-            .Title("Deleting Product!")
+            .Title("Choose Supplier!")
             .AddChoices(suppliers)
             .UseConverter(p => p.Name)
             );
