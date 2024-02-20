@@ -75,7 +75,7 @@ public class ProductServiceUI
             AnsiConsole.WriteLine($"Id : {createdProduct.Id}");
             AnsiConsole.WriteLine($"Name : {createdProduct.Name}");
             AnsiConsole.WriteLine($"Price : {createdProduct.Price}");
-            AnsiConsole.WriteLine($"Quantity : {createdProduct.Quantity}");
+            //AnsiConsole.WriteLine($"Quantity : {createdProduct.Quantity}");
             AnsiConsole.WriteLine($"Barcode : {createdProduct.Barcode}");
             await Console.Out.WriteLineAsync();
             AnsiConsole.WriteLine($"Description : {createdProduct.Description}");
@@ -93,32 +93,47 @@ public class ProductServiceUI
     private async Task UpdateProductAsync()
     {
         Console.Clear();
-        var productId = AnsiConsole.Ask<long>("Enter the product ID to update:");
+        var products = await _productService.GetAllAsync();
+        var selectedProduct = AnsiConsole.Prompt(new SelectionPrompt<ProductViewModel>()
+            .Title("Deleting Product!")
+            .AddChoices(products)
+            .UseConverter(p => p.Name)
+            );
+        var check = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .Title($"Are you sure to update? [green]({selectedProduct.Name})[/]")
+            .AddChoices(new[]
+                {
+                    "Yes", "No"
+                }));
 
-        try
-        {
-            var existingProduct = await _productService.GetByIdAsync(productId);
-            var updatedProduct = new ProductUpdateModel();
+        var productId = selectedProduct.Id;
 
-            updatedProduct.Name = AnsiConsole.Ask<string>("Enter the updated product name:", existingProduct.Name);
-            updatedProduct.Price = AnsiConsole.Ask<decimal>("Enter the updated product price:", existingProduct.Price);
-            updatedProduct.Description = AnsiConsole.Ask<string>("Enter the updated product description:", existingProduct.Description);
+        if (check == "Yes")
+            try
+            {
+                var existingProduct = await _productService.GetByIdAsync(productId);
+                var updatedProduct = new ProductUpdateModel();
 
-            var result = await _productService.UpdateAsync(productId, updatedProduct);
-            AnsiConsole.WriteLine("Product updated successfully:");
-            AnsiConsole.WriteLine($"Id : {result.Id}");
-            AnsiConsole.WriteLine($"Name : {result.Name}");
-            AnsiConsole.WriteLine($"Price : {result.Price}");
-            AnsiConsole.WriteLine($"Quantity : {result.Quantity}");
-            AnsiConsole.WriteLine($"Barcode : {result.Barcode}");
-            await Console.Out.WriteLineAsync();
-            AnsiConsole.WriteLine($"Description : {result.Description}");
-            await Console.Out.WriteLineAsync();
-        }
-        catch (Exception ex)
-        {
-            AnsiConsole.WriteLine($"Error updating product: {ex.Message}");
-        }
+                updatedProduct.Name = AnsiConsole.Ask<string>("Enter the updated product name:", existingProduct.Name);
+                updatedProduct.Price = AnsiConsole.Ask<decimal>("Enter the updated product price:", existingProduct.Price);
+                updatedProduct.Description = AnsiConsole.Ask<string>("Enter the updated product description:", existingProduct.Description);
+
+                var result = await _productService.UpdateAsync(productId, updatedProduct);
+                AnsiConsole.WriteLine("Product updated successfully:");
+                AnsiConsole.WriteLine($"Id : {result.Id}");
+                AnsiConsole.WriteLine($"Name : {result.Name}");
+                AnsiConsole.WriteLine($"Price : {result.Price}");
+                //AnsiConsole.WriteLine($"Quantity : {result.Quantity}");
+                AnsiConsole.WriteLine($"Barcode : {result.Barcode}");
+                await Console.Out.WriteLineAsync();
+                AnsiConsole.WriteLine($"Description : {result.Description}");
+                await Console.Out.WriteLineAsync();
+                AnsiConsole.WriteLine();
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.WriteLine($"Error updating product: {ex.Message}");
+            }
 
         AnsiConsole.MarkupLine("[yellow]Press any key to continue...[/]");
         Console.ReadKey(true);
@@ -127,25 +142,41 @@ public class ProductServiceUI
     private async Task DeleteProductAsync()
     {
         Console.Clear();
-        var productId = AnsiConsole.Ask<long>("Enter the product ID to delete:");
+        var products = await _productService.GetAllAsync();
+        var selectedProduct = AnsiConsole.Prompt(new SelectionPrompt<ProductViewModel>()
+            .Title("Deleting Product!")
+            .AddChoices(products)
+            .UseConverter(p => p.Name)
+            );
+        var check = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .Title($"Are you sure to delete? [green]({selectedProduct.Name})[/]")
+            .AddChoices(new[]
+                {
+                    "Yes", "No"
+                }));
 
-        try
+        if ( check == "Yes" )
         {
-            var result = await _productService.DeleteAsync(productId);
-            if (result)
+            var productId = selectedProduct.Id;
+
+            try
             {
-                AnsiConsole.WriteLine("Product deleted successfully.");
+                var result = await _productService.DeleteAsync(productId);
+                if (result)
+                {
+                    AnsiConsole.WriteLine("Product deleted successfully.");
+                }
+                else
+                {
+                    AnsiConsole.WriteLine($"Error deleting product with ID={productId}");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                AnsiConsole.WriteLine($"Error deleting product with ID={productId}");
+                AnsiConsole.WriteLine($"Error deleting product: {ex.Message}");
             }
         }
-        catch (Exception ex)
-        {
-            AnsiConsole.WriteLine($"Error deleting product: {ex.Message}");
-        }
-
+        AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("[yellow]Press any key to continue...[/]");
         Console.ReadKey(true);
     }
@@ -164,11 +195,12 @@ public class ProductServiceUI
                 AnsiConsole.WriteLine($"Id : {product.Id}");
                 AnsiConsole.WriteLine($"Name : {product.Name}");
                 AnsiConsole.WriteLine($"Price : {product.Price}");
-                AnsiConsole.WriteLine($"Quantity : {product.Quantity}");
+                //AnsiConsole.WriteLine($"Quantity : {product.Quantity}");
                 AnsiConsole.WriteLine($"Barcode : {product.Barcode}");
                 await Console.Out.WriteLineAsync();
                 AnsiConsole.WriteLine($"Description : {product.Description}");
                 await Console.Out.WriteLineAsync();
+                AnsiConsole.WriteLine();
             }
         }
         catch (Exception ex)
@@ -190,7 +222,16 @@ public class ProductServiceUI
         {
             var product = await _productService.GetByIdAsync(productId);
             AnsiConsole.WriteLine("Product:");
-            AnsiConsole.WriteLine(product.ToString());
+            AnsiConsole.MarkupLine("-----------------------------------------------------------");
+            AnsiConsole.WriteLine($"Id : {product.Id}");
+            AnsiConsole.WriteLine($"Name : {product.Name}");
+            AnsiConsole.WriteLine($"Price : {product.Price}");
+            //AnsiConsole.WriteLine($"Quantity : {product.Quantity}"); 
+            AnsiConsole.WriteLine($"Barcode : {product.Barcode}");
+            await Console.Out.WriteLineAsync();
+            AnsiConsole.WriteLine($"Description : {product.Description}");
+            await Console.Out.WriteLineAsync();
+            AnsiConsole.WriteLine();
         }
         catch (Exception ex)
         {
@@ -212,11 +253,12 @@ public class ProductServiceUI
             AnsiConsole.WriteLine("Imported Products:");
             foreach (var product in importedProducts)
             {
+                await Console.Out.WriteLineAsync();
                 AnsiConsole.MarkupLine("-----------------------------------------------------------");
                 AnsiConsole.WriteLine($"Id : {product.Id}");
                 AnsiConsole.WriteLine($"Name : {product.Name}");
                 AnsiConsole.WriteLine($"Price : {product.Price}");
-                AnsiConsole.WriteLine($"Quantity : {product.Quantity}");
+                //AnsiConsole.WriteLine($"Quantity : {product.Quantity}"); 
                 AnsiConsole.WriteLine($"Barcode : {product.Barcode}");
                 await Console.Out.WriteLineAsync();
                 AnsiConsole.WriteLine($"Description : {product.Description}");
