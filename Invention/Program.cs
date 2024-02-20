@@ -4,17 +4,17 @@ using Invention.Services;
 using Invention.Uis;
 using System.Data;
 
-//var marketService = new MarketService();
-//var marketUi = new MarketServiceUI(marketService);
-//await marketUi.RunAsync();
+var marketService = new MarketService();
+var marketUi = new MarketServiceUI(marketService);
+await marketUi.RunAsync();
 
 //var productService = new ProductService();
 //var productUi = new ProductServiceUI(productService);
 //await productUi.RunAsync();
 
-var supplierService = new SupplierService();
-var supplierUi = new SupplierServiceUi(supplierService);
-await supplierUi.RunAsync();
+//var supplierService = new SupplierService();
+//var supplierUi = new SupplierServiceUi(supplierService);
+//await supplierUi.RunAsync();
 
 //var service1 = new SupplierService();
 

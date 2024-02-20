@@ -84,35 +84,50 @@ public class MarketServiceUI
     private async Task UpdateMarketAsync()
     {
         Console.Clear();
-        var marketId = AnsiConsole.Ask<long>("Enter the market ID to update:");
+        var markets = await _marketService.GetAllAsync();
+        var selectedMarket = AnsiConsole.Prompt(new SelectionPrompt<MarketViewModel>()
+            .Title("Choose a market to update!")
+            .AddChoices(markets)
+            .UseConverter(m => m.Name)
+            );
 
-        try
-        {
-            var existingMarket = await _marketService.GetByIdAsync(marketId);
-            var updatedMarket = new MarketUpdateModel();
+        var check = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .Title($"Are you sure to update? [green]({selectedMarket.Name})[/]")
+            .AddChoices(new[]
+            {
+                "Yes", "No"
+            }));
 
-            updatedMarket.Name = AnsiConsole.Ask<string>("Enter the updated market name:", existingMarket.Name);
-            updatedMarket.Email = AnsiConsole.Ask<string>("Enter the updated market email:", existingMarket.Email);
-            updatedMarket.Phone = AnsiConsole.Ask<string>("Enter the updated market phone number:", existingMarket.Phone);
-            updatedMarket.Address = AnsiConsole.Ask<string>("Enter the updated market address:", existingMarket.Address);
-            updatedMarket.Description = AnsiConsole.Ask<string>("Enter the updated market description:", existingMarket.Description);
+        if (check == "Yes")
+            try
+            {
+                var marketId = selectedMarket.Id;
 
-            var result = await _marketService.UpdateAsync(marketId, updatedMarket);
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("[green]Market created successfully:[/]");
-            AnsiConsole.WriteLine();
-            AnsiConsole.MarkupLine("------------------------------------------------");
-            AnsiConsole.MarkupLine($"[yellow]Name : [/]{result.Name}");
-            AnsiConsole.MarkupLine($"[yellow]Description : [/]{result.Description}");
-            AnsiConsole.MarkupLine($"[yellow]Phone : [/]{result.Phone}");
-            AnsiConsole.MarkupLine($"[yellow]Address : [/]{result.Address}");
-            AnsiConsole.MarkupLine($"[yellow]Email : [/]{result.Email}");
-            await Console.Out.WriteLineAsync();
-        }
-        catch (Exception ex)
-        {
-            AnsiConsole.WriteLine($"Error updating market: {ex.Message}");
-        }
+                var existingMarket = await _marketService.GetByIdAsync(marketId);
+                var updatedMarket = new MarketUpdateModel();
+
+                updatedMarket.Name = AnsiConsole.Ask<string>("Enter the updated market name:", existingMarket.Name);
+                updatedMarket.Email = AnsiConsole.Ask<string>("Enter the updated market email:", existingMarket.Email);
+                updatedMarket.Phone = AnsiConsole.Ask<string>("Enter the updated market phone number:", existingMarket.Phone);
+                updatedMarket.Address = AnsiConsole.Ask<string>("Enter the updated market address:", existingMarket.Address);
+                updatedMarket.Description = AnsiConsole.Ask<string>("Enter the updated market description:", existingMarket.Description);
+
+                var result = await _marketService.UpdateAsync(marketId, updatedMarket);
+                AnsiConsole.WriteLine();
+                AnsiConsole.MarkupLine("[green]Market created successfully:[/]");
+                AnsiConsole.WriteLine();
+                AnsiConsole.MarkupLine("------------------------------------------------");
+                AnsiConsole.MarkupLine($"[yellow]Name : [/]{result.Name}");
+                AnsiConsole.MarkupLine($"[yellow]Description : [/]{result.Description}");
+                AnsiConsole.MarkupLine($"[yellow]Phone : [/]{result.Phone}");
+                AnsiConsole.MarkupLine($"[yellow]Address : [/]{result.Address}");
+                AnsiConsole.MarkupLine($"[yellow]Email : [/]{result.Email}");
+                await Console.Out.WriteLineAsync();
+            }
+            catch (Exception ex)
+            {
+                AnsiConsole.WriteLine($"Error updating market: {ex.Message}");
+            }
         AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("[yellow]Press any key to continue...[/]");
         Console.ReadKey(true);
@@ -121,24 +136,40 @@ public class MarketServiceUI
     private async Task DeleteMarketAsync()
     {
         Console.Clear();
-        var marketId = AnsiConsole.Ask<long>("Enter the market ID to delete:");
 
-        try
-        {
-            var result = await _marketService.DeleteAsync(marketId);
-            if (result)
+        var markets = await _marketService.GetAllAsync();
+        var selectedMarket = AnsiConsole.Prompt(new SelectionPrompt<MarketViewModel>()
+            .Title("Choose a market to update!")
+            .AddChoices(markets)
+            .UseConverter(m => m.Name)
+            );
+
+        var check = AnsiConsole.Prompt(new SelectionPrompt<string>()
+            .Title($"Are you sure to update? [green]({selectedMarket.Name})[/]")
+            .AddChoices(new[]
             {
-                AnsiConsole.WriteLine("Market deleted successfully.");
-            }
-            else
+                "Yes", "No"
+            }));
+
+        if (check == "Yes")
+            try
             {
-                AnsiConsole.WriteLine($"Error deleting market with ID={marketId}");
+                var marketId = selectedMarket.Id;
+
+                var result = await _marketService.DeleteAsync(marketId);
+                if (result)
+                {
+                    AnsiConsole.WriteLine("Market deleted successfully.");
+                }
+                else
+                {
+                    AnsiConsole.WriteLine($"Error deleting market with ID={marketId}");
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            AnsiConsole.WriteLine($"Error deleting market: {ex.Message}");
-        }
+            catch (Exception ex)
+            {
+                AnsiConsole.WriteLine($"Error deleting market: {ex.Message}");
+            }
 
         AnsiConsole.WriteLine();
         AnsiConsole.MarkupLine("[yellow]Press any key to continue...[/]");
@@ -179,10 +210,17 @@ public class MarketServiceUI
     private async Task GetMarketByIdAsync()
     {
         Console.Clear();
-        var marketId = AnsiConsole.Ask<long>("Enter the market ID to retrieve:");
-
         try
         {
+            var markets = await _marketService.GetAllAsync();
+            var selectedMarket = AnsiConsole.Prompt(new SelectionPrompt<MarketViewModel>()
+                .Title("Choose a market to update!")
+                .AddChoices(markets)
+                .UseConverter(m => m.Name)
+                );
+
+            var marketId = selectedMarket.Id;
+
             var market = await _marketService.GetByIdAsync(marketId);
             AnsiConsole.WriteLine("Market:");
             AnsiConsole.MarkupLine("------------------------------------------------");
